@@ -1,0 +1,115 @@
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.login-form-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0086d39d;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 1000px;
+  padding: 20px;
+}
+
+.login-form {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.login-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+.login-form h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #E7F6FF;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+}
+
+.login-form label {
+  margin-bottom: 10px;
+}
+
+.input-container {
+    position: relative; /* Tambahkan posisi relatif untuk container */
+    display: flex;
+    align-items: center;
+    background-color: #e0e0e0;
+    padding: 10px;
+    width: 400px;
+    margin-bottom: 20px;
+    border-radius: 25px;
+  }
+  
+  .input-container .icon.username {
+    position: absolute; /* Jadikan posisi absolut untuk icon username */
+    left: -10px; /* Atur jarak dari kiri */
+    font-size: 2.5em;
+    background-color: rgb(255, 255, 255);
+    padding: 10px; /* Tambahkan padding untuk icon */
+    border-radius: 50%; /* Agar icon memiliki bentuk bulat */
+  }
+  
+  .input-container .icon.password {
+    position: absolute; /* Jadikan posisi absolut untuk icon password */
+    right: -10px; /* Atur jarak dari kanan */
+    font-size: 2.5em;
+    background-color: rgb(255, 255, 255);
+    padding: 10px; /* Tambahkan padding untuk icon */
+    border-radius: 50%; /* Agar icon memiliki bentuk bulat */
+  }
+  
+  .login-form input {
+    padding: 10px;
+    border: none;
+    background: none;
+    outline: none;
+    padding-left: 50px; /* Tambahkan ruang di kiri untuk input username */
+    padding-right: 50px; /* Tambahkan ruang di kanan untuk input password */
+  }
+    
+
+.login-form button {
+  width: 205px; /* Menetapkan lebar tombol */
+  padding: 10px;
+  background-color: #002E58;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.login-form button:hover {
+  background-color: #7fbdff;
+  color: #002E58;
+}
