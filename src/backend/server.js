@@ -9,7 +9,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+app.use('/user', userRoutes); // Rute untuk user endpoints
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
