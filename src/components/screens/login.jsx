@@ -8,7 +8,7 @@ import loginImage from "../../assets/images/login/loginImage.png";
 import loginBG from "../../assets/images/login/loginBG.jpg";
 
 async function loginUser(credentials) {
-  const response = await fetch("http://localhost:8080/login", {
+  const response = await fetch("http://localhost:8080/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +28,7 @@ const loginSchema = z.object({
   password: z.string().nonempty("Password is required"),
 });
 
-const Login = ({ setToken, setRole }) => {
+const Login = ({ setToken, setRole, setUserDetails }) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -40,19 +40,30 @@ const Login = ({ setToken, setRole }) => {
     try {
       loginSchema.parse({ username, password });
     } catch (err) {
-      setErrors(err.errors.reduce((acc, current) => {
-        acc[current.path[0]] = current.message;
-        return acc;
-      }, {}));
+      setErrors(
+        err.errors.reduce((acc, current) => {
+          acc[current.path[0]] = current.message;
+          return acc;
+        }, {})
+      );
       return;
     }
 
     try {
       const response = await loginUser({ username, password });
+      console.log("Server response:", response); // Debug: Log server response
 
       if (response.token) {
         setToken(response.token);
         setRole(response.role);
+        setUserDetails({
+          username: response.username,
+          fullname: response.fullname,
+        });
+        console.log("UserDetails set in Login:", {
+          username: response.username,
+          fullname: response.fullname,
+        });
         handleLoginSuccess(response.role);
       } else {
         setErrors({ general: "Login failed!" });
@@ -77,12 +88,14 @@ const Login = ({ setToken, setRole }) => {
         navigate("/admin");
         break;
       default:
-        navigate("/"); 
+        navigate("/");
     }
   };
 
   return (
-    <div className='login-container' style={{ backgroundImage: `url(${loginBG})` }}>
+    <div
+      className='login-container'
+      style={{ backgroundImage: `url(${loginBG})` }}>
       <div className='login-form-container'>
         <div className='login-form'>
           <h1>USER LOGIN</h1>
@@ -98,8 +111,10 @@ const Login = ({ setToken, setRole }) => {
               />
               <label htmlFor='username'>Username</label>
             </div>
-            {errors.username && <span className="error-message">{errors.username}</span>}
-            
+            {errors.username && (
+              <span className='error-message'>{errors.username}</span>
+            )}
+
             <div className='input-container'>
               <Icon icon='carbon:password' className='icon password' />
               <input
@@ -111,12 +126,14 @@ const Login = ({ setToken, setRole }) => {
               />
               <label htmlFor='password'>Password</label>
             </div>
-            {errors.password && <span className="error-message">{errors.password}</span>}
-            
-            <div>
+            {errors.password && (
+              <span className='error-message'>{errors.password}</span>
+            )}
+
+            <div className='wrapper-button'>
               <button type='submit'>LOGIN</button>
             </div>
-            {errors.general && <div className="error-message">{errors.general}</div>}
+            {errors.general && <div className='error-message'>{errors.general}</div>}
           </form>
         </div>
         <div className='login-image'>
@@ -125,6 +142,6 @@ const Login = ({ setToken, setRole }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Login;
