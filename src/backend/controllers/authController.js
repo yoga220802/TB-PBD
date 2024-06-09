@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const db = require('../db/db');
 
 const login = (req, res) => {
@@ -9,11 +10,18 @@ const login = (req, res) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
     if (result.length > 0) {
+      const user = result[0];
+      const token = jwt.sign(
+        { userId: user.userId, username: user.usrname, role: user.roleId },
+        'your_secret_key', // Ganti dengan secret key yang aman
+        { expiresIn: '1h' } // Token akan kadaluarsa dalam 1 jam
+      );
+
       res.json({
-        token: 'your_generated_token_here',
-        role: result[0].roleId,
-        username: result[0].usrname,
-        fullname: result[0].fullName,
+        token: token,
+        role: user.roleId,
+        username: user.usrname,
+        fullname: user.fullName,
       });
     } else {
       res.status(401).json({ message: 'Username or password is incorrect' });
