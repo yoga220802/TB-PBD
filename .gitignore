@@ -136,3 +136,7 @@ dist
 # exclude datasets
 *.csv
 *.xlsx
+
+# exclude temporary and test files
+tmp*
+test*
