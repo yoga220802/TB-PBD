@@ -1,0 +1,167 @@
+/* General styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+  background-color: #E3F2FD
+}
+
+/* Topbar styles */
+.topbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #002E58;
+  color: white;
+  display: flex;
+  justify-content: space-between; /* Adjust to space between elements */
+  align-items: center; /* Center items vertically */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.topbar-left {
+  flex: 1; /* Take up remaining space */
+}
+
+.apotek-sehat {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user-button {
+  background-color: #005AAC;
+  color: white;
+  height: 30px;
+  width: auto;
+  border: none;
+  padding: 10px 15px; /* Adjust padding for the button */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+
+.user-fullname {
+  margin-right: 10px; /* Add some space between text and icon */
+}
+
+.user-dropdown-container {
+  position: relative;
+  margin-right: 40px; 
+}
+
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  left: 0px; /* Adjust this value to move the dropdown to the left */
+  background-color: #71E6FF;
+  padding: 10px;
+  height: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center; /* Center logout button horizontally */
+}
+
+.logout-button {
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.logout-button .icon {
+  width: 13px;
+  height: auto;
+  margin-right: 10px; /* Add some space between icon and text */
+}
+
+.logout-button .logout-text {
+  font-size: 13px;
+  font-family: Poppins;
+}
+
+/* Icon size */
+.icon {
+  width: 30px;
+  height: 30px;
+}
+  
+.user-container {
+  background-color: #E3F2FD;
+  height: 100vh;
+  padding: 80px 20px 20px; /* Add padding-top to account for the fixed topbar */
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #90D1F0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.user-welcome {
+  font-size: 20px;
+  font-weight: bold;
+}
+  .table-container {
+    margin-top: 20px;
+    margin-bottom: 500px;
+    padding-bottom: 80px;
+  }
+  
+  .medicine-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .medicine-table th, .medicine-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .medicine-table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .medicine-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .edit-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .add-button-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .add-button {
+    background-color: #28a745;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
