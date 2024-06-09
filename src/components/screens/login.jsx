@@ -1,27 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { z } from "zod";
+import { loginUser } from "../../api/authAPI";
 
 import "../../styles/login.css";
 import loginImage from "../../assets/images/login/loginImage.png";
 import loginBG from "../../assets/images/login/loginBG.jpg";
-
-async function loginUser(credentials) {
-  const response = await fetch("http://localhost:8080/auth/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
-
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
-
-  return response.json();
-}
 
 const loginSchema = z.object({
   username: z.string().nonempty("Username is required"),
@@ -33,6 +18,33 @@ const Login = ({ setToken, setRole, setUserDetails }) => {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    if (token) {
+      handleLoginSuccess(role);
+    }
+  }, [navigate]);
+
+  const handleLoginSuccess = (role) => {
+    switch (role) {
+      case "APOTKR":
+        navigate("/apoteker");
+        break;
+      case "PSTOK":
+        navigate("/gudang");
+        break;
+      case "KAPOT":
+        navigate("/kepala-apoteker");
+        break;
+      case "ADMIN":
+        navigate("/admin");
+        break;
+      default:
+        navigate("/"); // Default route jika role tidak dikenali
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,16 +63,16 @@ const Login = ({ setToken, setRole, setUserDetails }) => {
 
     try {
       const response = await loginUser({ username, password });
-      console.log("Server response:", response); // Debug: Log server response
+      console.log("Server response:", response);
 
       if (response.token) {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('role', response.role);
+        localStorage.setItem('userDetails', JSON.stringify({ username: response.username, fullname: response.fullname }));
+
         setToken(response.token);
         setRole(response.role);
         setUserDetails({
-          username: response.username,
-          fullname: response.fullname,
-        });
-        console.log("UserDetails set in Login:", {
           username: response.username,
           fullname: response.fullname,
         });
@@ -70,25 +82,6 @@ const Login = ({ setToken, setRole, setUserDetails }) => {
       }
     } catch (error) {
       setErrors({ general: "Login gagal, pastikan username dan password valid." });
-    }
-  };
-
-  const handleLoginSuccess = (roleId) => {
-    switch (roleId) {
-      case "APOTKR":
-        navigate("/apoteker");
-        break;
-      case "PSTOK":
-        navigate("/pustakawan");
-        break;
-      case "KAPOT":
-        navigate("/kepala-apoteker");
-        break;
-      case "ADMIN":
-        navigate("/admin");
-        break;
-      default:
-        navigate("/");
     }
   };
 
