@@ -1,8 +1,17 @@
 const jwt = require('jsonwebtoken');
 const db = require('../db/db');
+require('dotenv').config();
+
+console.log(process.env.JWT_SECRET); 
 
 const login = (req, res) => {
   const { username, password } = req.body;
+
+  // Validasi input
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required' });
+  }
+
   const sql = `SELECT userId, usrname, fullName, roleId FROM users WHERE usrname = ? AND usrpass = ?`;
   db.query(sql, [username, password], (err, result) => {
     if (err) {
@@ -13,8 +22,8 @@ const login = (req, res) => {
       const user = result[0];
       const token = jwt.sign(
         { userId: user.userId, username: user.usrname, role: user.roleId },
-        'your_secret_key', // Ganti dengan secret key yang aman
-        { expiresIn: '1h' } // Token akan kadaluarsa dalam 1 jam
+        process.env.JWT_SECRET,
+        { expiresIn: '1h' }
       );
 
       res.json({
