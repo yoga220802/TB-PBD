@@ -1,0 +1,211 @@
+/* General styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+}
+
+/* Topbar styles */
+.topbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #002E58;
+  color: white;
+  display: flex;
+  justify-content: space-between; /* Adjust to space between elements */
+  align-items: center; /* Center items vertically */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.topbar-left {
+  flex: 1; /* Take up remaining space */
+}
+
+.apotek-sehat {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user-button {
+  background-color: #005AAC;
+  color: white;
+  height: 30px;
+  width: auto;
+  border: none;
+  padding: 10px 15px; /* Adjust padding for the button */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+
+.user-fullname {
+  margin-right: 10px; /* Add some space between text and icon */
+}
+
+.user-dropdown-container {
+  position: relative;
+  margin-right: 40px; 
+}
+
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  left: 0px; /* Adjust this value to move the dropdown to the left */
+  background-color: #71E6FF;
+  padding: 10px;
+  height: 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center; /* Center logout button horizontally */
+}
+
+.logout-button {
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.logout-button .icon {
+  width: 13px;
+  height: auto;
+  margin-right: 10px; /* Add some space between icon and text */
+}
+
+.logout-button .logout-text {
+  font-size: 13px;
+  font-family: Poppins;
+}
+
+/* Icon size */
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Admin container styles */
+.user-container {
+  background-color: #E3F2FD;
+  height: 100vh;
+  padding: 80px 20px 20px; /* Add padding-top to account for the fixed topbar */
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #90D1F0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.user-welcome {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user-buttons {
+  display: flex;
+  flex-direction: row; /* Change to column for vertical alignment */
+  align-items: center; /* Center items horizontally */
+  gap: 20px;
+  height: 80%;
+  justify-content: center; /* Center items vertically */
+}
+
+.btn {
+  padding: 15px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+}
+
+.show-users {
+  background-color: #1E88E5;
+  color: white;
+}
+
+.add-user {
+  background-color: #43A047;
+  color: white;
+}
+
+.user-list-container {
+  margin-top: 80px; /* Memberikan ruang di bawah topbar */
+  padding: 20px; /* Opsional, untuk memberi jarak dalam container */
+}
+
+.user-list-container h2{
+  text-align: center;
+}
+
+.user-list-container h3{
+  text-align: start;
+  font-size: 15px;
+}
+
+/* User card styles */
+.user-card {
+  background-color: #BBDEFB;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  background-color: #64B5F6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.avatar-icon {
+  width: 50px;
+  height: 50px;
+  color: white;
+}
+
+.user-info p {
+  margin: 5px 0;
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn.edit {
+  background-color: #1E88E5;
+  color: white;
+}
+
+.btn.delete {
+  background-color: #E53935;
+  color: white;
+}
