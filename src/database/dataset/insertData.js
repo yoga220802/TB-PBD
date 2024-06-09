@@ -42,7 +42,7 @@ function addToQueue(row, index) {
 
 async function insertData(row, index) {
     const query = `
-        INSERT INTO MedicineData (medicineName, brand, medicinePrice, medicineCategory, stock, expirationDate)
+        INSERT INTO MedicineData (medicineName, brand, medicinePrice, medicineUnit, stock, expirationDate)
         VALUES (?, ?, ?, ?, ?, ?);
     `;
     const values = [
