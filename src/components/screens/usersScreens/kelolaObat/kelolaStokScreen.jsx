@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import "../../../../styles/dashboard/kelolaStock/kelolaStockDashboard.css"; // Import the CSS file for styling
-import AddObat from './addObat';
-import EditObat from './editObat';
+import AddObat from "./addObat";
+import EditObat from "./editObat";
 
 const formatRupiah = (amount) => {
  const numberAmount = Number(amount); // Konversi amount ke tipe data number
@@ -21,7 +21,7 @@ const formatDate = (dateString) => {
  return date.toISOString().split("T")[0];
 };
 
-function KelolaStokScreen({userDetails, logout }) {
+function KelolaStokScreen({ userDetails, logout }) {
  const navigate = useNavigate();
  const { username, fullname } = userDetails;
  const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -44,19 +44,19 @@ function KelolaStokScreen({userDetails, logout }) {
 
  const fetchMedicines = () => {
   fetch("http://localhost:8080/medicine/get-medicines")
-    .then((response) => response.json())
-    .then((data) => {
-      setMedicines(data);
-    })
-    .catch((error) => console.error("Error fetching medicines:", error));
-};
+   .then((response) => response.json())
+   .then((data) => {
+    setMedicines(data);
+   })
+   .catch((error) => console.error("Error fetching medicines:", error));
+ };
 
  useEffect(() => {
   console.log("KelolaStokScreen userDetails:", userDetails); // Debug: Log userDetails
  }, [userDetails]);
 
  useEffect(() => {
-  fetchMedicines()
+  fetchMedicines();
  }, []);
 
  const handleLogout = () => {
@@ -98,16 +98,32 @@ function KelolaStokScreen({userDetails, logout }) {
  }, [medicines, sortConfig]);
 
  const filteredMedicines = useMemo(() => {
-  return sortedMedicines.filter(medicine =>
-    String(medicine.medicineID).toLowerCase().includes(searchID.toLowerCase()) &&
+  return sortedMedicines.filter(
+   (medicine) =>
+    String(medicine.medicineID)
+     .toLowerCase()
+     .includes(searchID.toLowerCase()) &&
     medicine.medicineName.toLowerCase().includes(searchName.toLowerCase()) &&
     medicine.brand.toLowerCase().includes(searchBrand.toLowerCase()) &&
-    (searchPrice ? Number(medicine.medicinePrice) <= Number(searchPrice) : true) &&
+    (searchPrice
+     ? Number(medicine.medicinePrice) <= Number(searchPrice)
+     : true) &&
     (searchStock ? Number(medicine.stock) <= Number(searchStock) : true) &&
     medicine.medicineUnit.toLowerCase().includes(searchUnit.toLowerCase()) &&
-    (searchExpiration ? new Date(medicine.expirationDate) < new Date(searchExpiration) : true)  // Periksa jika searchExpiration tidak kosong
+    (searchExpiration
+     ? new Date(medicine.expirationDate) < new Date(searchExpiration)
+     : true) // Periksa jika searchExpiration tidak kosong
   );
-}, [sortedMedicines, searchID, searchName, searchBrand, searchPrice, searchStock, searchUnit, searchExpiration]);
+ }, [
+  sortedMedicines,
+  searchID,
+  searchName,
+  searchBrand,
+  searchPrice,
+  searchStock,
+  searchUnit,
+  searchExpiration,
+ ]);
  const requestSort = (key) => {
   let direction = "ascending";
   if (sortConfig.key === key && sortConfig.direction === "ascending") {
@@ -179,9 +195,7 @@ function KelolaStokScreen({userDetails, logout }) {
       <thead>
        <tr>
         <th>
-          <span onClick={() => requestSort("medicineID")}>
-         Medicine ID
-          </span>
+         <span onClick={() => requestSort("medicineID")}>Medicine ID</span>
          <input
           type='text'
           placeholder='Search...'
@@ -191,9 +205,8 @@ function KelolaStokScreen({userDetails, logout }) {
          />
         </th>
         <th>
-          <span onClick={() => requestSort("medicineName")}>
-         Medicine Name
-          </span>
+         <span onClick={() => requestSort("medicineName")}>Medicine Name</span>
+         <br />
          <input
           type='text'
           placeholder='Search...'
@@ -203,9 +216,7 @@ function KelolaStokScreen({userDetails, logout }) {
          />
         </th>
         <th>
-          <span onClick={() => requestSort("brand")}>
-         Brand
-          </span>
+         <span onClick={() => requestSort("brand")}>Brand</span>
          <input
           type='text'
           placeholder='Search...'
@@ -215,9 +226,7 @@ function KelolaStokScreen({userDetails, logout }) {
          />
         </th>
         <th>
-          <span onClick={() => requestSort("medicinePrice")}>
-         Harga
-          </span>
+         <span onClick={() => requestSort("medicinePrice")}>Harga</span>
          <input
           type='text'
           placeholder='Search...'
@@ -227,9 +236,7 @@ function KelolaStokScreen({userDetails, logout }) {
          />
         </th>
         <th>
-          <span onClick={() => requestSort("stock")}>
-         Stok
-          </span>
+         <span onClick={() => requestSort("stock")}>Stok</span>
          <input
           type='text'
           placeholder='Search...'
@@ -239,9 +246,7 @@ function KelolaStokScreen({userDetails, logout }) {
          />
         </th>
         <th>
-          <span onClick={() => requestSort("medicineUnit")}>
-         Satuan
-          </span>
+         <span onClick={() => requestSort("medicineUnit")}>Satuan</span>
          <input
           type='text'
           placeholder='Search...'
@@ -266,22 +271,32 @@ function KelolaStokScreen({userDetails, logout }) {
        </tr>
       </thead>
       <tbody>
-       {filteredMedicines.map((medicine) => (
-        <tr key={medicine.medicineID}>
-         <td>{medicine.medicineID}</td>
-         <td>{medicine.medicineName}</td>
-         <td>{medicine.brand}</td>
-         <td>{formatRupiah(medicine.medicinePrice)}</td>
-         <td>{medicine.stock}</td>
-         <td>{medicine.medicineUnit}</td>
-         <td>{formatDate(medicine.expirationDate)}</td>
-         <td>
-          <button className='edit-button' onClick={() => handleOpenEditModal(medicine)}>
-           <Icon icon='mdi:pencil' className='icon' />
-          </button>
+       {filteredMedicines.length > 0 ? (
+        filteredMedicines.map((medicine) => (
+         <tr key={medicine.medicineID}>
+          <td>{medicine.medicineID}</td>
+          <td>{medicine.medicineName}</td>
+          <td>{medicine.brand}</td>
+          <td>{formatRupiah(medicine.medicinePrice)}</td>
+          <td>{medicine.stock}</td>
+          <td>{medicine.medicineUnit}</td>
+          <td>{formatDate(medicine.expirationDate)}</td>
+          <td>
+           <button
+            className='edit-button'
+            onClick={() => handleOpenEditModal(medicine)}>
+            <Icon icon='mdi:pencil' className='icon' />
+           </button>
+          </td>
+         </tr>
+        ))
+       ) : (
+        <tr>
+         <td colSpan='8' style={{ textAlign: "center" }}>
+          Belum ada Obat
          </td>
         </tr>
-       ))}
+       )}
       </tbody>
      </table>
     </div>
@@ -291,8 +306,16 @@ function KelolaStokScreen({userDetails, logout }) {
      </button>
     </div>
    </div>
-   {isAddModalVisible && <AddObat close={handleCloseAddModal} onAddSuccess={fetchMedicines} />}
-   {isEditModalVisible && <EditObat selectedMedicineId={selectedMedicine} close={handleCloseEditModal} onEditSuccess={fetchMedicines} />}
+   {isAddModalVisible && (
+    <AddObat close={handleCloseAddModal} onAddSuccess={fetchMedicines} />
+   )}
+   {isEditModalVisible && (
+    <EditObat
+     selectedMedicineId={selectedMedicine}
+     close={handleCloseEditModal}
+     onEditSuccess={fetchMedicines}
+    />
+   )}
   </div>
  );
 }
